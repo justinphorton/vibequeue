@@ -1,0 +1,71 @@
+"""
+URL configuration for spotifyapp project.
+
+The `urlpatterns` list routes URLs to views. For more information please see:
+    https://docs.djangoproject.com/en/5.2/topics/http/urls/
+Examples:
+Function views
+    1. Add an import:  from my_app import views
+    2. Add a URL to urlpatterns:  path('', views.home, name='home')
+Class-based views
+    1. Add an import:  from other_app.views import Home
+    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
+Including another URLconf
+    1. Import the include() function: from django.urls import include, path
+    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
+"""
+from django.contrib import admin
+from django.urls import path
+
+from core.views import (
+    AuthURL,
+    spotify_callback,
+    IsAuthenticated,
+    Logout,
+    SongView,
+    GPTSongRecView,
+    get_message,
+    Devices,
+    SearchTracks,
+    Play,
+    Pause,
+    QueueLatestFiveSongs,
+    PlayPauseToggle,
+    CurrentPlayback,
+    ClearSongs,
+    QueueURI,
+    SaveManualSong,
+    PlaySongFromHistory,
+    QueueSongFromHistory,
+)
+
+urlpatterns = [
+    path("admin/", admin.site.urls),
+    path("message/", get_message, name="get-message"),
+    path("get-auth-url", AuthURL.as_view()),
+    path("get-auth-url/", AuthURL.as_view()),
+    path("redirect", spotify_callback),
+    path("is-authenticated/", IsAuthenticated.as_view()),
+    path("logout/", Logout.as_view()),
+
+    path("songs/", SongView.as_view(), name="songs"),
+    path("devices/", Devices.as_view()),
+    path("search/", SearchTracks.as_view()),
+
+    path("play/", Play.as_view()),
+    path("pause/", Pause.as_view()),
+
+    # song recs w gpt
+    path("song-recs/", GPTSongRecView.as_view(), name="song-recs"),
+
+    path("queue-latest/", QueueLatestFiveSongs.as_view()),
+    path("play-toggle/", PlayPauseToggle.as_view()),
+    path("current-playback/", CurrentPlayback.as_view()),
+
+    #new
+    path("songs/clear/", ClearSongs.as_view()),
+    path("queue-uri/", QueueURI.as_view()),
+    path("songs/save-manual/", SaveManualSong.as_view()),
+    path("songs/<int:song_id>/play/", PlaySongFromHistory.as_view()),
+    path("songs/<int:song_id>/queue/", QueueSongFromHistory.as_view()),
+]
