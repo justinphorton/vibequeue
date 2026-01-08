@@ -97,7 +97,7 @@ Frontend runs at `http://localhost:3000`
 ├── backend/
 │   └── spotifyapp/
 │       ├── config/          # Django settings
-│       ├── core/            # Main app (models, views, API endpoints)
+│       ├── core/            # Main app 
 │       ├── manage.py
 │       └── .env
 └── frontend/
